@@ -1,19 +1,21 @@
 /* global _stopObservingProgress, _startObservingProgress */
-import { requireNativeComponent } from 'react-native';
+import { Platform, requireNativeComponent } from 'react-native';
 import React from 'react';
 import { runOnUI } from '../core';
 import { withStyleAnimation } from '../animations';
 
-const REALayoutView = requireNativeComponent('REALayoutView');
+let REALayoutView: any;
+if (Platform.OS === 'web' && !requireNativeComponent) {
+  REALayoutView = React.Component;
+} else {
+  REALayoutView = (requireNativeComponent(
+    'REALayoutView'
+  ) as unknown) as React.Component;
+}
+
 export class AnimatedLayout extends React.Component {
-  render() {
-    return (
-      <REALayoutView
-        collapsable={false}
-        {...this.props}
-        animated={true && !(this.props.animated === 'false')}
-      />
-    );
+  render(): React.ReactElement {
+    return <REALayoutView collapsable={false} {...this.props} />;
   }
 }
 
@@ -22,7 +24,7 @@ export class AnimatedLayout extends React.Component {
 runOnUI(() => {
   'worklet';
 
-  const configs = {};
+  const configs: Record<string, any> = {};
 
   global.LayoutAnimationRepository = {
     configs,
@@ -42,14 +44,14 @@ runOnUI(() => {
       }
 
       const style = configs[tag][type](yogaValues);
-      const sv = configs[tag].sv;
+      const sv: { value: boolean; _value: boolean } = configs[tag].sv;
       _stopObservingProgress(tag, false);
       _startObservingProgress(tag, sv);
       sv._value = Object.assign({}, sv._value, style.initialValues);
       _stopObservingProgress(tag, false);
       const animation = withStyleAnimation(style.animations);
 
-      animation.callback = (finished) => {
+      animation.callback = (finished: boolean) => {
         if (finished) {
           _stopObservingProgress(tag, finished);
         }

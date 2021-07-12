@@ -1,14 +1,17 @@
-import { BaseAnimationBuilder } from '../defaultAnimationsBuilder';
-import { Dimensions } from 'react-native';
+import {
+  IEntryExitAnimationBuilder,
+  EntryExitAnimationBuild,
+} from '../animationBuilder/commonTypes';
+import { BaseAnimationBuilder } from '../animationBuilder/BaseAnimationBuilder';
 
-const { width, height } = Dimensions.get('window');
-
-export class FadeIn extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeIn
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeIn {
     return new FadeIn();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -24,15 +27,17 @@ export class FadeIn extends BaseAnimationBuilder {
         },
       };
     };
-  }
+  };
 }
 
-export class FadeInRight extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeInRight
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeInRight {
     return new FadeInRight();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -42,23 +47,27 @@ export class FadeInRight extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(1, config)),
-          transform: [{ translateX: delayFunction(delay, animation(0, config)) }]
+          transform: [
+            { translateX: delayFunction(delay, animation(0, config)) },
+          ],
         },
         initialValues: {
           opacity: 0,
-          transform: [{ translateX: 25 }]
+          transform: [{ translateX: 25 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeInLeft extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeInLeft
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeInLeft {
     return new FadeInLeft();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -68,23 +77,27 @@ export class FadeInLeft extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(1, config)),
-          transform: [{ translateX: delayFunction(delay, animation(0, config)) }]
+          transform: [
+            { translateX: delayFunction(delay, animation(0, config)) },
+          ],
         },
         initialValues: {
           opacity: 0,
-          transform: [{ translateX: -25 }]
+          transform: [{ translateX: -25 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeInUp extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeInUp
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeInUp {
     return new FadeInUp();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -94,23 +107,27 @@ export class FadeInUp extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(1, config)),
-          transform: [{ translateY: delayFunction(delay, animation(0, config)) }]
+          transform: [
+            { translateY: delayFunction(delay, animation(0, config)) },
+          ],
         },
         initialValues: {
           opacity: 0,
-          transform: [{ translateY: -25 }]
+          transform: [{ translateY: -25 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeInDown extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeInDown
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeInDown {
     return new FadeInDown();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -120,23 +137,27 @@ export class FadeInDown extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(1, config)),
-          transform: [{ translateY: delayFunction(delay, animation(0, config)) }]
+          transform: [
+            { translateY: delayFunction(delay, animation(0, config)) },
+          ],
         },
         initialValues: {
           opacity: 0,
-          transform: [{ translateY: 25 }]
+          transform: [{ translateY: 25 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeOut extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeOut
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeOut {
     return new FadeOut();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -152,15 +173,17 @@ export class FadeOut extends BaseAnimationBuilder {
         },
       };
     };
-  }
+  };
 }
 
-export class FadeOutRight extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeOutRight
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeOutRight {
     return new FadeOutRight();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -170,23 +193,27 @@ export class FadeOutRight extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(0, config)),
-          transform: [{ translateX: delayFunction(delay, animation(25, config)) }]
+          transform: [
+            { translateX: delayFunction(delay, animation(25, config)) },
+          ],
         },
         initialValues: {
           opacity: 1,
-          transform: [{ translateX: 0 }]
+          transform: [{ translateX: 0 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeOutLeft extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeOutLeft
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeOutLeft {
     return new FadeOutLeft();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -196,23 +223,27 @@ export class FadeOutLeft extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(0, config)),
-          transform: [{ translateX: delayFunction(delay, animation(-25, config)) }]
+          transform: [
+            { translateX: delayFunction(delay, animation(-25, config)) },
+          ],
         },
         initialValues: {
           opacity: 1,
-          transform: [{ translateX: 0 }]
+          transform: [{ translateX: 0 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeOutUp extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeOutUp
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeOutUp {
     return new FadeOutUp();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -222,23 +253,27 @@ export class FadeOutUp extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(0, config)),
-          transform: [{ translateY: delayFunction(delay, animation(-25, config)) }]
+          transform: [
+            { translateY: delayFunction(delay, animation(-25, config)) },
+          ],
         },
         initialValues: {
           opacity: 1,
-          transform: [{ translateY: 0 }]
+          transform: [{ translateY: 0 }],
         },
       };
     };
-  }
+  };
 }
 
-export class FadeOutDown extends BaseAnimationBuilder {
-  static createInstance() {
+export class FadeOutDown
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FadeOutDown {
     return new FadeOutDown();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -248,13 +283,15 @@ export class FadeOutDown extends BaseAnimationBuilder {
       return {
         animations: {
           opacity: delayFunction(delay, animation(0, config)),
-          transform: [{ translateY: delayFunction(delay, animation(25, config)) }]
+          transform: [
+            { translateY: delayFunction(delay, animation(25, config)) },
+          ],
         },
         initialValues: {
           opacity: 1,
-          transform: [{ translateY: 0 }]
+          transform: [{ translateY: 0 }],
         },
       };
     };
-  }
+  };
 }

@@ -179,7 +179,7 @@ export function withStartValue(startValue, animation) {
   });
 }
 
-export function withTiming(toValue, userConfig, callback) {
+export function withTiming(toValue: any, userConfig: any, callback?: any) {
   'worklet';
 
   return defineAnimation(toValue, () => {
@@ -193,8 +193,7 @@ export function withTiming(toValue, userConfig, callback) {
     }
 
     function timing(animation, now) {
-      const { toValue, progress, startTime, current } = animation;
-
+      const { toValue, startTime, startValue } = animation;
       const runtime = now - startTime;
 
       if (runtime >= config.duration) {
@@ -203,13 +202,8 @@ export function withTiming(toValue, userConfig, callback) {
         animation.current = toValue;
         return true;
       }
-
-      const newProgress = config.easing(runtime / config.duration);
-
-      const dist =
-        ((toValue - current) * (newProgress - progress)) / (1 - progress);
-      animation.current += dist;
-      animation.progress = newProgress;
+      const progress = animation.easing(runtime / config.duration);
+      animation.current = startValue + (toValue - startValue) * progress;
       return false;
     }
 
@@ -224,12 +218,17 @@ export function withTiming(toValue, userConfig, callback) {
         // new timing over the old one with the same parameters. If so, we want
         // to copy animation timeline properties
         animation.startTime = previousAnimation.startTime;
-        animation.progress = previousAnimation.progress;
+        animation.startValue = previousAnimation.startValue;
       } else {
         animation.startTime = now;
-        animation.progress = 0;
+        animation.startValue = value;
       }
       animation.current = value;
+      if (typeof config.easing === 'object') {
+        animation.easing = config.easing.factory();
+      } else {
+        animation.easing = config.easing;
+      }
     }
 
     return {
@@ -332,9 +331,12 @@ export function withStyleAnimation(styleAnimations) {
             obj[type] = prevVal;
             animation.current.transform[i] = obj;
             let currentAnimation = transform[i][type];
-            if (typeof currentAnimation != 'object' && !Array.isArray(currentAnimation)) {
+            if (
+              typeof currentAnimation !== 'object' &&
+              !Array.isArray(currentAnimation)
+            ) {
               currentAnimation = withTiming(currentAnimation, { duration: 0 });
-              transform[i][type] = currentAnimation
+              transform[i][type] = currentAnimation;
             }
             currentAnimation.onStart(
               currentAnimation,
@@ -361,7 +363,10 @@ export function withStyleAnimation(styleAnimations) {
           }
           animation.current[key] = prevVal;
           let currentAnimation = animation.styleAnimations[key];
-          if (typeof currentAnimation != 'object' && !Array.isArray(currentAnimation)) {
+          if (
+            typeof currentAnimation !== 'object' &&
+            !Array.isArray(currentAnimation)
+          ) {
             currentAnimation = withTiming(currentAnimation, { duration: 0 });
             animation.styleAnimations[key] = currentAnimation;
           }
@@ -412,7 +417,6 @@ export function withStyleAnimation(styleAnimations) {
     };
   });
 }
-
 
 export function withSpring(toValue, userConfig, callback) {
   'worklet';

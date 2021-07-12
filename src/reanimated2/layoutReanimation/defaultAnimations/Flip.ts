@@ -1,11 +1,17 @@
-import { BaseAnimationBuilder } from '../defaultAnimationsBuilder';
+import {
+  IEntryExitAnimationBuilder,
+  EntryExitAnimationBuild,
+} from '../animationBuilder/commonTypes';
+import { BaseAnimationBuilder } from '../animationBuilder/BaseAnimationBuilder';
 
-export class FlipInXUp extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipInXUp
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipInXUp {
     return new FlipInXUp();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -13,10 +19,10 @@ export class FlipInXUp extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateX: '90deg'},
+            { rotateX: '90deg' },
             { translateY: -targetValues.height },
           ],
         },
@@ -26,18 +32,20 @@ export class FlipInXUp extends BaseAnimationBuilder {
             { rotateX: delayFunction(delay, animation('0deg', config)) },
             { translateY: delayFunction(delay, animation(0, config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipInYLeft extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipInYLeft
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipInYLeft {
     return new FlipInYLeft();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -45,10 +53,10 @@ export class FlipInYLeft extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateY: '-90deg'},
+            { rotateY: '-90deg' },
             { translateX: -targetValues.width },
           ],
         },
@@ -58,18 +66,20 @@ export class FlipInYLeft extends BaseAnimationBuilder {
             { rotateY: delayFunction(delay, animation('0deg', config)) },
             { translateX: delayFunction(delay, animation(0, config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipInXDown extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipInXDown
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipInXDown {
     return new FlipInXDown();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -77,10 +87,10 @@ export class FlipInXDown extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateX: '-90deg'},
+            { rotateX: '-90deg' },
             { translateY: targetValues.height },
           ],
         },
@@ -90,18 +100,20 @@ export class FlipInXDown extends BaseAnimationBuilder {
             { rotateX: delayFunction(delay, animation('0deg', config)) },
             { translateY: delayFunction(delay, animation(0, config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipInYRight extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipInYRight
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipInYRight {
     return new FlipInYRight();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -109,10 +121,10 @@ export class FlipInYRight extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateY: '90deg'},
+            { rotateY: '90deg' },
             { translateX: targetValues.width },
           ],
         },
@@ -122,18 +134,20 @@ export class FlipInYRight extends BaseAnimationBuilder {
             { rotateY: delayFunction(delay, animation('0deg', config)) },
             { translateX: delayFunction(delay, animation(0, config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipInEasyX extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipInEasyX
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipInEasyX {
     return new FlipInEasyX();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -141,29 +155,28 @@ export class FlipInEasyX extends BaseAnimationBuilder {
     return () => {
       'worklet';
       return {
-        initialValues:{
-          transform: [
-            { perspective: 500 },
-            { rotateX: '90deg'},
-          ],
+        initialValues: {
+          transform: [{ perspective: 500 }, { rotateX: '90deg' }],
         },
         animations: {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateX: delayFunction(delay, animation('0deg', config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipInEasyY extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipInEasyY
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipInEasyY {
     return new FlipInEasyY();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -171,29 +184,28 @@ export class FlipInEasyY extends BaseAnimationBuilder {
     return () => {
       'worklet';
       return {
-        initialValues:{
-          transform: [
-            { perspective: 500 },
-            { rotateY: '90deg'},
-          ],
+        initialValues: {
+          transform: [{ perspective: 500 }, { rotateY: '90deg' }],
         },
         animations: {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateY: delayFunction(delay, animation('0deg', config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipOutXUp extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipOutXUp
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipOutXUp {
     return new FlipOutXUp();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -201,10 +213,10 @@ export class FlipOutXUp extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateX: '0deg'},
+            { rotateX: '0deg' },
             { translateY: 0 },
           ],
         },
@@ -212,20 +224,27 @@ export class FlipOutXUp extends BaseAnimationBuilder {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateX: delayFunction(delay, animation('90deg', config)) },
-            { translateY: delayFunction(delay, animation(-targetValues.height, config)) },
+            {
+              translateY: delayFunction(
+                delay,
+                animation(-targetValues.height, config)
+              ),
+            },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipOutYLeft extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipOutYLeft
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipOutYLeft {
     return new FlipOutYLeft();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -233,10 +252,10 @@ export class FlipOutYLeft extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateY: '0deg'},
+            { rotateY: '0deg' },
             { translateX: 0 },
           ],
         },
@@ -244,20 +263,27 @@ export class FlipOutYLeft extends BaseAnimationBuilder {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateY: delayFunction(delay, animation('-90deg', config)) },
-            { translateX: delayFunction(delay, animation(-targetValues.width, config)) },
+            {
+              translateX: delayFunction(
+                delay,
+                animation(-targetValues.width, config)
+              ),
+            },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipOutXDown extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipOutXDown
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipOutXDown {
     return new FlipOutXDown();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -265,10 +291,10 @@ export class FlipOutXDown extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateX: '0deg'},
+            { rotateX: '0deg' },
             { translateY: 0 },
           ],
         },
@@ -276,20 +302,27 @@ export class FlipOutXDown extends BaseAnimationBuilder {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateX: delayFunction(delay, animation('-90deg', config)) },
-            { translateY: delayFunction(delay, animation(targetValues.height, config)) },
+            {
+              translateY: delayFunction(
+                delay,
+                animation(targetValues.height, config)
+              ),
+            },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipOutYRight extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipOutYRight
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipOutYRight {
     return new FlipOutYRight();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -297,10 +330,10 @@ export class FlipOutYRight extends BaseAnimationBuilder {
     return (targetValues) => {
       'worklet';
       return {
-        initialValues:{
+        initialValues: {
           transform: [
             { perspective: 500 },
-            { rotateY: '0deg'},
+            { rotateY: '0deg' },
             { translateX: 0 },
           ],
         },
@@ -308,20 +341,27 @@ export class FlipOutYRight extends BaseAnimationBuilder {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateY: delayFunction(delay, animation('90deg', config)) },
-            { translateX: delayFunction(delay, animation(targetValues.width, config)) },
+            {
+              translateX: delayFunction(
+                delay,
+                animation(targetValues.width, config)
+              ),
+            },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipOutEasyX extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipOutEasyX
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipOutEasyX {
     return new FlipOutEasyX();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -329,29 +369,28 @@ export class FlipOutEasyX extends BaseAnimationBuilder {
     return () => {
       'worklet';
       return {
-        initialValues:{
-          transform: [
-            { perspective: 500 },
-            { rotateX: '0deg'},
-          ],
+        initialValues: {
+          transform: [{ perspective: 500 }, { rotateX: '0deg' }],
         },
         animations: {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateX: delayFunction(delay, animation('90deg', config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
 
-export class FlipOutEasyY extends BaseAnimationBuilder {
-  static createInstance() {
+export class FlipOutEasyY
+  extends BaseAnimationBuilder
+  implements IEntryExitAnimationBuilder {
+  static createInstance(): FlipOutEasyY {
     return new FlipOutEasyY();
   }
 
-  build() {
+  build: EntryExitAnimationBuild = () => {
     const delayFunction = this.getDelayFunction();
     const [animation, config] = this.getAnimationAndConfig();
     const delay = this.delayV;
@@ -359,19 +398,16 @@ export class FlipOutEasyY extends BaseAnimationBuilder {
     return () => {
       'worklet';
       return {
-        initialValues:{
-          transform: [
-            { perspective: 500 },
-            { rotateY: '0deg'},
-          ],
+        initialValues: {
+          transform: [{ perspective: 500 }, { rotateY: '0deg' }],
         },
         animations: {
           transform: [
             { perspective: delayFunction(delay, animation(500, config)) },
             { rotateY: delayFunction(delay, animation('90deg', config)) },
           ],
-        }
-      }
+        },
+      };
     };
-  }
+  };
 }
